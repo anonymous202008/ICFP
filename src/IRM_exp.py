@@ -212,15 +212,12 @@ if __name__ == '__main__':
 
     y_pred_tst_constant = run_constant(x, y, trn_idx, tst_idx)
     eval_constant = evaluate_pred(y_pred_tst_constant, y[tst_idx], metrics_set)
-    print("=========== evaluation for constant predictor ================: ", eval_constant)
 
     y_pred_tst_full, clf_full = run_full(x, y, env, trn_idx, tst_idx)
     eval_full = evaluate_pred(y_pred_tst_full, y[tst_idx], metrics_set)
-    print("=========== evaluation for full predictor ================: ", eval_full)
 
     y_pred_tst_unaware, clf_unaware = run_unaware(x, y, trn_idx, tst_idx)
     eval_unaware = evaluate_pred(y_pred_tst_unaware, y[tst_idx], metrics_set)
-    print("=========== evaluation for unaware predictor ================: ", eval_unaware)
 
     # numpy -> tensors
     x = torch.FloatTensor(x)
@@ -242,7 +239,6 @@ if __name__ == '__main__':
 
     y_pred_tst_cfp1, clf_cfp1, causal_model_tst = run_CFP_1_true(x, y, env, trn_idx, tst_idx, model_name_assume, args)
     eval_cf_1_true = evaluate_pred(y_pred_tst_cfp1, y[tst_idx], metrics_set)
-    print("=========== evaluation for CFPred_1 predictor with true causal model ================: ", eval_cf_1_true)
 
 
     model_IRM = IRMmodel(x_dim, args)  # model
@@ -408,12 +404,5 @@ if __name__ == '__main__':
     ave_wass_cfp1 = sum(wass_cfp1) / len(wass_cfp1)
     ave_wass_irm = sum(wass_irm) / len(wass_irm)
 
-    print("====================================== overall fairness ==================================================================")
-
-    print("================== fairness evaluation for full prediction ==================: mmd: ", ave_mmd_full, " wass: ", ave_wass_full)
-    print("================== fairness evaluation for unaware prediction ==================: mmd: ", ave_mmd_unaware,
-          " wass: ", ave_wass_unaware)
-    print("================== fairness evaluation for cfp1 prediction ==================: mmd: ", ave_mmd_cfp1,
-          " wass: ", ave_wass_cfp1)
     print("================== fairness evaluation for irm-m prediction ==================: mmd: ", ave_mmd_irm,
           " wass: ", ave_wass_irm)
